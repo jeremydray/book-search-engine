@@ -14,7 +14,6 @@ const LoginForm = () => {
 
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -31,11 +30,13 @@ const LoginForm = () => {
     }
 
     try {
+      console.log('about to try login')
+
       const { data } = await login({ variables: { ...userFormData } });
 
-      const { token, user } = await data
-      console.log(user);
-      Auth.login(token);
+
+      console.log('after login')
+      Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
