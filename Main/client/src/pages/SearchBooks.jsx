@@ -75,14 +75,17 @@ const SearchBooks = () => {
       return false;
     }
     try {
-      // const response = await saveBook(bookToSave, token);
 
+      //PREVIOUS CODE
+      // const response = await saveBook(bookToSave, token);
       // if (!response.ok) {
       //   throw new Error('something went wrong!');
       // }
 
       const token = Auth.loggedIn() ? Auth.getToken() : null;
 
+
+      //NEW CODE WITH GRAPHQL
       const { data } = await savedBook({
         variables: { input: bookToSave }
 
