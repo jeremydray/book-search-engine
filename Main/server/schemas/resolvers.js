@@ -5,7 +5,8 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id }).populate('savedBooks');
+                return User.findOne({ _id: context.user._id }).populate('savedBooks', { new: true });
+
             }
             throw AuthenticationError;
         },
@@ -41,14 +42,10 @@ const resolvers = {
         },
         removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                const thought = await User.findOneAndDelete({
-                    _id: bookId,
-                    thoughtAuthor: context.user.username,
-                });
-
                 await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { savedBooks: { bookId } } }
+                    { $pull: { savedBooks: { bookId } } },
+                    { new: true }
                 );
             }
             throw AuthenticationError;

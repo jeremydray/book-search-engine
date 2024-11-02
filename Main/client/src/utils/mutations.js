@@ -38,21 +38,3 @@ mutation removeBook($bookId: String!) {
     bookCount
   }
 }`
-
-export const GET_USER = gql`
-query Me {
-  me {
-    _id
-    bookCount
-    email
-    savedBooks {
-      authors
-      bookId
-      description
-      image
-      link
-      title
-    }
-    username
-  }
-}`
