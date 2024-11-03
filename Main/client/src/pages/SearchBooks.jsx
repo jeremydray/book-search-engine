@@ -75,20 +75,12 @@ const SearchBooks = () => {
       return false;
     }
     try {
-
-      //PREVIOUS CODE
-      // const response = await saveBook(bookToSave, token);
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
-
-      //NEW CODE WITH GRAPHQL
+      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
       await savedBook({
         variables: { input: bookToSave }
       })
 
       // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);
     }
