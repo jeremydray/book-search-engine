@@ -18,7 +18,6 @@ import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
-
   const userData = data?.me || {};
 
   const [deleteBook, { error }] = useMutation(REMOVE_BOOK)
@@ -36,6 +35,8 @@ const SavedBooks = () => {
       removeBookId(bookId);
 
       await deleteBook({ variables: { bookId } });
+
+      data?.me
 
     } catch (error) {
       console.error(error);
